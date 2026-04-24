@@ -53,7 +53,7 @@ persona-marco-velli/
 │   └── SKILL.md                  #   10 reusable thinking patterns
 ├── scripts/
 │   └── generate_bib.py           #   Generate formatted bibliography
-└── velli.bib                     #   ~3,285 entries — Velli's core works + field context
+└── velli.bib                     #   338 entries — Velli's core works + field context
 ```
 
 ### Key Numbers
