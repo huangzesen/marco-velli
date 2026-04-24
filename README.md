@@ -62,9 +62,9 @@ persona-marco-velli/
 |-----------|-------|
 | Physics arguments (VA claims) | 105 structured entries across 7 domains |
 | Method cards (VM) | 10 reusable thinking patterns |
-| Bibliography entries | ~3,285 (77 directly cited, the rest as reference pool) |
+| Bibliography entries | 338 (77 directly cited, the rest as reference pool) |
 | Profile sections | 4 (biography, voice, values, relationships) |
-| Input tokens (estimated) | ~180,000 for the full skill bundle |
+| Input tokens (estimated) | ~90,000 for the full skill bundle |
 
 ---
 
