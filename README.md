@@ -26,34 +26,41 @@ This repository is not written by Velli. It is a **research artifact** — a sys
 
 ## What's Inside
 
+This repository follows the [LingTai recipe bundle format](https://github.com/huangzesen/lingtai/blob/main/tui/internal/preset/skills/lingtai-recipe/references/recipe-format.md): a `.recipe/` dotfolder with the recipe manifest, plus a sibling library folder named `persona-marco-velli` containing the skill itself.
+
 ```
-persona-marco-velli/
-├── SKILL.md                      # Entry point — loads the whole persona
-├── profile/                      # Who Velli is
-│   ├── SKILL.md                  #   Profile overview and loader
-│   ├── biography.md              #   Education, career, honors
-│   ├── voice.md                  #   Speech patterns, humor, storytelling
-│   ├── values.md                 #   Scientific philosophy, priorities
-│   └── relationships.md          #   Collaborator network, mentors, students
-├── arguments/                    # What Velli knows and believes
-│   ├── SKILL.md                  #   Argument overview and loader
-│   ├── physics/                  #   7 subdomains of solar physics
-│   │   ├── alfven-waves.md       #   Reflection-driven turbulence, 1/f spectrum
-│   │   ├── turbulence.md         #   MHD turbulence, reduced MHD, intermittency
-│   │   ├── switchbacks.md        #   Switchback origins, expansion-driven model
-│   │   ├── coronal-heating.md    #   Wave-turbulence heating models
-│   │   ├── reconnection.md       #   Ideal tearing mode, fast reconnection
-│   │   ├── psp-observations.md   #   Parker Solar Probe discoveries
-│   │   └── solar-wind.md         #   Solar wind acceleration, large-scale structure
-│   ├── methodology/              #   How Velli thinks (from his works)
-│   │   └── thinking-methods.md   #   Argumentation style, cognitive heuristics
-│   └── culture/                  #   Broader scientific culture
-│       └── scientific-culture.md #   Velli on the field, mentoring, collaboration
-├── methods/                      # Distilled method cards
-│   └── SKILL.md                  #   10 reusable thinking patterns
-├── scripts/
-│   └── generate_bib.py           #   Generate formatted bibliography
-└── velli.bib                     #   338 entries — Velli's core works + field context
+marco-velli/                                  # this repo (recipe bundle root)
+├── .recipe/
+│   └── recipe.json                           # bundle manifest (id, name, description, library_name)
+├── README.md                                 # you are here
+└── persona-marco-velli/                      # the library folder
+    └── persona-marco-velli/                  # the skill (one library, one skill)
+        ├── SKILL.md                          # entry point — loads the whole persona
+        ├── profile/                          # who Velli is
+        │   ├── SKILL.md
+        │   ├── biography.md                  #   education, career, honors
+        │   ├── voice.md                      #   speech patterns, humor, storytelling
+        │   ├── values.md                     #   scientific philosophy, priorities
+        │   └── relationships.md              #   collaborator network, mentors, students
+        ├── arguments/                        # what Velli knows and believes
+        │   ├── SKILL.md
+        │   ├── physics/                      #   7 subdomains of solar physics
+        │   │   ├── alfven-waves.md           #   reflection-driven turbulence, 1/f spectrum
+        │   │   ├── turbulence.md             #   MHD turbulence, reduced MHD, intermittency
+        │   │   ├── switchbacks.md            #   switchback origins, expansion-driven model
+        │   │   ├── coronal-heating.md        #   wave-turbulence heating models
+        │   │   ├── reconnection.md           #   ideal tearing mode, fast reconnection
+        │   │   ├── psp-observations.md       #   Parker Solar Probe discoveries
+        │   │   └── solar-wind.md             #   solar wind acceleration, large-scale structure
+        │   ├── methodology/                  #   how Velli thinks
+        │   │   └── thinking-methods.md       #   argumentation style, cognitive heuristics
+        │   └── culture/                      #   broader scientific culture
+        │       └── scientific-culture.md     #   Velli on the field, mentoring, collaboration
+        ├── methods/                          # distilled method cards
+        │   └── SKILL.md                      #   10 reusable thinking patterns
+        ├── scripts/
+        │   └── generate_bib.py
+        └── velli.bib                         # 338 entries — Velli's core works + field context
 ```
 
 ### Key Numbers
@@ -70,29 +77,38 @@ persona-marco-velli/
 
 ## How to Use
 
-### As a LingTai Recipe
+### As a LingTai recipe
 
-If you use the [LingTai](https://github.com/huangzesen/lingtai-tui) agent orchestration platform:
-
-```bash
-recipe apply ~/lingtai-agora/recipes/marco-velli/
-```
-
-This registers `persona-marco-velli/` as a skill library and makes every agent in your network Velli-aware.
-
-### As a Framework-Agnostic Skill
-
-Any AI framework that reads `SKILL.md` (Claude Code, Cursor, custom projects) can load this directly:
+If you use the [LingTai](https://github.com/huangzesen/lingtai) agent platform, clone this repo into your agora directory and select it from the TUI's recipe picker:
 
 ```bash
-# Point your framework at the persona directory
-# Then ask:
-# "What's Velli's view on reflection-driven turbulence?"
-# "How does the ideal tearing model differ from standard Sweet-Parker?"
-# "Tell me about the Parker Solar Probe switchback discoveries."
+# 1. Clone into your agora's recipes directory
+mkdir -p ~/lingtai-agora/recipes
+git clone https://github.com/huangzesen/marco-velli ~/lingtai-agora/recipes/marco-velli
+
+# 2. Start a new LingTai project and pick "marco-velli" in the recipe wizard
+mkdir ~/work/my-velli-network && cd ~/work/my-velli-network
+lingtai-tui
+# In the recipe-picker step, choose "marco-velli (Marco Velli (Persona))"
 ```
 
-You can also fork the repo and drop individual argument files (`persona-marco-velli/arguments/physics/switchbacks.md`) into your project's skill library.
+The TUI will copy the bundle into your project, register `persona-marco-velli/` as a library, and make every agent in your network Velli-aware on first launch.
+
+### As a framework-agnostic skill
+
+Any AI framework that reads `SKILL.md` (Claude Code, Cursor, custom projects) can load this directly. Point your framework at `persona-marco-velli/persona-marco-velli/` (the skill folder, two levels deep) and reference its `SKILL.md`:
+
+```
+persona-marco-velli/persona-marco-velli/SKILL.md
+```
+
+Sample prompts once loaded:
+
+- *"What's Velli's view on reflection-driven turbulence?"*
+- *"How does the ideal tearing model differ from standard Sweet-Parker?"*
+- *"Tell me about the Parker Solar Probe switchback discoveries."*
+
+You can also fork and pick individual argument files (`persona-marco-velli/persona-marco-velli/arguments/physics/switchbacks.md`) for narrower contexts.
 
 ### Quick Start Prompt
 
@@ -141,5 +157,5 @@ MIT — feel free to use, modify, and distribute. See the [LICENSE](LICENSE) fil
 ## Related
 
 - [impersonate-meta](https://github.com/huangzesen/impersonate-meta) — The methodology used to build this persona
-- [LingTai TUI](https://github.com/huangzesen/lingtai-tui) — The multi-agent orchestration platform
+- [LingTai](https://github.com/huangzesen/lingtai) — The multi-agent orchestration platform (TUI + portal)
 - Marco Velli at UCLA — [EPSS faculty page](https://epss.ucla.edu/person/marco-velli/)
